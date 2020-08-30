@@ -55,7 +55,7 @@ class Movie():
             logging.warning(f"  Le film: '{self.title}' est enregistré.")
             return False
 
-    def remove_to_movies(self):
+    def remove_from_movies(self):
         """ """
         movies = self._get_movies()
 
@@ -67,16 +67,3 @@ class Movie():
             logging.warning(f"  Suppression impossible:  '{self.title}' n'est pas enregistré.")
             return False            
 
-if __name__ == '__main__':
-    b= Movie("interstellar")
-    print(b.add_to_movies())
-    m = Movie("Harry potter")
-    c = Movie("matrix")
-    print(c.add_to_movies())
-    print(m.add_to_movies())
-    u = Movie("Arthur et les minimoys")
-    print(u.add_to_movies())
-    T = Movie("Avengers")
-    T.remove_to_movies()
-    listy = get_movies()
-    print(listy)

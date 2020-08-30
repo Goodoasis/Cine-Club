@@ -23,6 +23,7 @@ class App(QtWidgets.QWidget):
         self.le_movieTitle = QtWidgets.QLineEdit()
         self.btn_addMovie = QtWidgets.QPushButton("Ajouter un film")
         self.lw_movies = QtWidgets.QListWidget()
+        self.lw_movies.setSelectionMode(QtWidgets.QListWidget.ExtendedSelection)
         self.btn_removeMovies = QtWidgets.QPushButton("Supprimer le(s) film(s)")
         # Ajout des widgets dans le layout
         self.layout.addWidget(self.le_movieTitle)
@@ -32,12 +33,13 @@ class App(QtWidgets.QWidget):
 
     def populate_movies(self):
         """ """
+        self.lw_movies.clear()
         for movie in get_movies():
             lw_item = QtWidgets.QListWidgetItem(movie.title)
             # Methode pour joindre un objet a un str de ListWidget
             lw_item.setData(QtCore.Qt.UserRole, movie)
             # Ajout du contenu du json dans ListWidget
-            self.lw_movies.addItem(movie.title)
+            self.lw_movies.addItem(lw_item)
 
     def setup_connexions(self):
         """ """
@@ -53,8 +55,9 @@ class App(QtWidgets.QWidget):
         if not movie_title:
             return False
         movie= Movie(movie_title)
+        result = movie.add_to_movies()
         # Ajouter le film dans le Json
-        if movie.add_to_movies():
+        if result:
             lw_item = QtWidgets.QListWidgetItem(movie.title)
             lw_item.setData(QtCore.Qt.UserRole, movie)
             # Ajouter le film dans le ListWidget
@@ -64,10 +67,10 @@ class App(QtWidgets.QWidget):
 
     def remove_movie(self):
         """ """
-        print("on supprime un film")
-
-
-
+        for selected_item in self.lw_movies.selectedItems():
+            movie = selected_item.data(QtCore.Qt.UserRole)
+            movie.remove_from_movies()
+            self.lw_movies.takeItem(self.lw_movies.row(selected_item))
 
 app = QtWidgets.QApplication([])
 win = App()

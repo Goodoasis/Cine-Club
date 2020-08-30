@@ -9,8 +9,11 @@ class App(QtWidgets.QWidget):
         """ """
         super().__init__()
         self.setWindowTitle("Ciné Club")
+        # Ajout des widgets
         self.setup_ui()
         self.populate_movies()
+        # Création des connexion entre widgets
+        self.setup_connexions()
 
     def setup_ui(self):
         """ """
@@ -31,8 +34,25 @@ class App(QtWidgets.QWidget):
         """ """
         for movie in get_movies():
             lw_item = QtWidgets.QListWidgetItem(movie.title)
+            # Methode pour joindre un objet a un str de ListWidget
             lw_item.setData(QtCore.Qt.UserRole, movie)
+            # Ajout du contenu du json dans ListWidget
             self.lw_movies.addItem(movie.title)
+
+    def setup_connexions(self):
+        """ """
+        self.btn_addMovie.clicked.connect(self.add_movie)
+        self.le_movieTitle.returnPressed.connect(self.add_movie)
+
+        self.btn_removeMovies.clicked.connect(self.remove_movie)
+
+    def add_movie(self):
+        """ """
+        print("on ajoute un film")
+
+    def remove_movie(self):
+        """ """
+        print("on supprime un film")
 
 
 

@@ -1,5 +1,5 @@
 from PySide2 import QtWidgets, QtCore
-from movie import get_movies
+from movie import Movie, get_movies
 
 class App(QtWidgets.QWidget):
     """
@@ -48,7 +48,19 @@ class App(QtWidgets.QWidget):
 
     def add_movie(self):
         """ """
-        print("on ajoute un film")
+        # Récupérer le text du lineEdit et Creer une instance Movie
+        movie_title = self.le_movieTitle.text()
+        if not movie_title:
+            return False
+        movie= Movie(movie_title)
+        # Ajouter le film dans le Json
+        if movie.add_to_movies():
+            lw_item = QtWidgets.QListWidgetItem(movie.title)
+            lw_item.setData(QtCore.Qt.UserRole, movie)
+            # Ajouter le film dans le ListWidget
+            self.lw_movies.addItem(lw_item)
+        
+        self.le_movieTitle.setText("")
 
     def remove_movie(self):
         """ """

@@ -37,7 +37,7 @@ class App(QtWidgets.QWidget):
 
     def populate_movies(self):
         """
-        Remplis le ListWidget des films contenus dans data\movies.json.
+        Remplis le ListWidget des films contenus dans data/movies.json.
         """
         self.lw_movies.clear()
         for movie in get_movies():

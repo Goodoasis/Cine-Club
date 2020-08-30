@@ -8,10 +8,10 @@ DATA_FILE =  os.path.join(CUR_DIR, "data", "movies.json")
 
 def get_movies():
     """ Fonction récuperant la liste des films de Json. """
-        with open(DATA_FILE, "r") as f:
-            movies_title = json.load(f)
-        movies = [Movie(movie_title) for movie_title in movies_title]
-        return movies
+    with open(DATA_FILE, "r") as f:
+        movies_title = json.load(f)
+    movies = [Movie(movie_title) for movie_title in movies_title]
+    return movies
 
 
 class Movie():
